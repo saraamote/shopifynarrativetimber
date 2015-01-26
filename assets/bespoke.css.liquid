@@ -1,0 +1,186 @@
+/*============================================================================
+
+==============================================================================*/
+
+
+
+/*================ font reset ================*/
+
+h1, h2, h3, h4, h5, h6 {
+
+  font-family: 'Gotham SSm A', 'Gotham SSm B';
+  font-style: normal;
+  font-weight: 300;
+
+}
+
+h1 {
+
+  font-size: 1.9em;
+  font-weight: 500;
+
+}
+
+body, p, a, span {
+
+  font-family: 'Gotham SSm A', 'Gotham SSm B';
+  font-style: normal;
+  font-weight: 200;
+
+}
+
+a {
+
+  text-decoration: none;
+
+}
+
+a:hover {
+
+  text-decoration: underline;
+
+}
+
+input[type="text"],
+input[type="search"],
+input[type="password"],
+input[type="email"],
+input[type="file"],
+input[type="number"],
+input[type="tel"],
+textarea,
+select {
+
+  font-family: 'Gotham SSm A', 'Gotham SSm B';
+  font-style: normal;
+  font-weight: 300;
+
+}
+
+
+
+/*================ global ================*/
+
+img {
+
+  box-shadow: 0 2px 5px 0 rgba( 0 , 0 , 0 , 0.26 ),
+  0 2px 10px 0 rgba( 0 , 0 , 0 , 0.16 );
+
+}
+
+
+
+/*================ header ================*/
+
+.site-header__logo a {
+
+  font-family: 'Obsidian A', 'Obsidian B';
+  font-style: italic;
+  font-weight: 400;
+  font-size: 58px;
+  color: #333;
+
+}
+
+
+
+/*================ product page ================*/
+
+/*
+general
+*/
+
+.grid.product-single,
+breadcrumb {
+
+  margin: 1em;
+
+}
+
+/*
+parallax
+*/
+
+.bespoke-parallax {
+
+  /*
+  height: 100vh;
+  */
+
+  min-height: 75vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-perspective: 1px;
+  perspective: 1px;
+  font-size: 20px;
+
+}
+
+.bespoke-parallax img {
+
+  box-shadow: none;
+  width: 100%;
+
+}
+
+.parallax-group {
+
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  position: relative;
+  height: 750px;
+  height: 100vh;
+
+}
+
+.parallax-group:nth-of-type(even)  {
+
+  text-align: left;
+  color: pink;
+
+}
+
+.parallax-group:nth-of-type(odd)  {
+
+  text-align: right;
+  color: blue;
+
+}
+
+.parallax-title {
+
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  position: absolute;
+  width: 100%;
+  left: 50%;
+  top: 50%;
+
+}
+
+.parallax-layer {
+
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  top: 0;
+
+
+}
+
+.parallax-layer-back {
+
+  -webkit-transform: translateZ(-1px) scale(2);
+  transform: translateZ(-1px) scale(2);
+
+}
+
+.parallax-layer-base {
+
+  -webkit-transform: translateZ();
+  transform: translateZ(0);
+
+}
+
+
