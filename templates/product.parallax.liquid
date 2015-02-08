@@ -9,14 +9,14 @@
 
 {% endcomment %}
 
-<div itemscope itemtype="http://schema.org/Product">
+<div class="bespoke-parallax" itemscope itemtype="http://schema.org/Product">
 
   <meta itemprop="url" content="{{ shop.url }}{{ product.url }}">
   <meta itemprop="image" content="{{ product.featured_image.src | img_url: 'grande' }}">
 
   {% include 'breadcrumb' %}
 
-  <div class="grid product-single">
+  <div class="grid product-single parallax-group">
     <div class="grid__item large--one-half text-center">
       <div class="product-single__photos" id="ProductPhoto">
         {% assign featured_image = product.selected_or_first_available_variant.featured_image | default: product.featured_image %}
@@ -147,55 +147,53 @@
     </div>
   </div>
 
-</div>
+  <div class="parallax-blog-feature">
 
-<!-- bespoke parallax -->
+    {% for article in blogs.product-features.articles %}
 
-<div class="bespoke-parallax">
+    {% if article.tags contains product.title %}
 
-  {% for article in blogs.product-features.articles %}
+    <div class="parallax-group">
 
-  {% if article.tags contains product.title %}
+      <div class="parallax-layer parallax-layer-back">
 
-  <div class="parallax-group">
+        {{ article.content }}
 
-    <div class="parallax-layer parallax-layer-back">
+      </div>
 
-      {{ article.content }}
+      <div class="parallax-layer parallax-layer-base">
 
-    </div>
+        <div class="parallax-title">
 
-    <div class="parallax-layer parallax-layer-base">
+          <h3>
 
-      <div class="parallax-title">
+            {{ article.title }}
 
-        <h3>
+          </h3>
 
-          {{ article.title }}
+          <p>
 
-        </h3>
+            {{ article.excerpt }}
 
-        <p>
+          </p>
 
-          {{ article.excerpt }}
-
-        </p>
+        </div>
 
       </div>
 
     </div>
 
+    {% endif %}
+
+    {% endfor %}
+
   </div>
-
-  {% endif %}
-
-  {% endfor %}
 
 </div>
 
-<!-- end bespoke parallax -->
-
 {% comment %}
+
+  {% include 'footer' %}
 
   To take advantage of a callback on the select dropdown, add option_selection.js
   and customize the JS in timber.productPage as needed.
