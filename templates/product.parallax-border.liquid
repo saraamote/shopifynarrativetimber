@@ -153,13 +153,13 @@
 
     <div class="parallax-group">
 
-      <div class="parallax-layer parallax-layer-back">
+      <div class="parallax-layer parallax-layer-base">
 
         {{ article.content }}
 
       </div>
 
-      <div class="parallax-layer parallax-layer-base">
+      <div class="parallax-layer parallax-layer-back">
 
         <div class="parallax-title">
 
@@ -238,3 +238,43 @@
     {% endif %}
   });
 </script>
+
+  <style>
+
+    .parallax-layer-back {
+
+      background: #fff;
+
+    }
+
+    .parallax-title {
+
+      background: rgba( 255 , 255 , 255 , 0.5 );
+      text-transform: uppercase;
+      font-weight: 600;
+      top: 5%;
+
+    }
+
+    .parallax-title h3:before {
+
+      display: none;
+
+    }
+
+    .parallax-title h3 {
+
+      font-family: 'Gotham SSm A', 'Gotham SSm B';
+      text-transform: uppercase;
+      font-weight: 600;
+
+    }
+
+    .parallax-title {
+
+      border: 5px double #000;
+
+    }
+
+
+  </style>
