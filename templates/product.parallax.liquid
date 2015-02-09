@@ -142,10 +142,18 @@
         {% endif %}
       {% endif %}
 
+        <div class="share">
+
+        <img height="20" src="{{ 'test-p.png' | asset_url }}" alt="{{ shop.name }}">
+        <img height="20" src="{{ 'test-t.png' | asset_url }}" alt="{{ shop.name }}">
+        <img height="20" src="{{ 'test-f.png' | asset_url }}" alt="{{ shop.name }}">
+
+      </div>
+
     </div>
   </div>
 
-  <div class="parallax-blog-feature">
+  <div class="parallax-blog-feature" style="position: relative;">
 
     {% for article in blogs.product-features.articles %}
 
@@ -238,3 +246,28 @@
     {% endif %}
   });
 </script>
+
+<style>
+
+  .share {
+
+      font-family: 'Gotham SSm A', 'Gotham SSm B';
+      text-transform: uppercase;
+      padding-top: 20px;
+      font-weight: 600;
+      margin: auto;
+      color: #000;
+
+    }
+
+    .share img {
+
+      height: 20px;
+      box-shadow: none;
+      vertical-align: top;
+      margin-left: 10px;
+      margin-right: 10px;
+
+    }
+
+</style>
