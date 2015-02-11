@@ -1,168 +1,99 @@
 <!-- /templates/product.liquid -->
-{% comment %}
 
-  Rich snippets (itemscope, itemtype, etc.) for products are a theme requirement,
-  and allow search engines to easily understand what the content is.
-
-  For more information on these Scheme.org tags, visit:
-    - http://schema.org/docs/gs.html
-
-{% endcomment %}
-
-<div class="bespoke-parallax" itemscope itemtype="http://schema.org/Product">
+<div class="bespoke-plx" itemscope itemtype="http://schema.org/Product">
 
   <meta itemprop="url" content="{{ shop.url }}{{ product.url }}">
+
   <meta itemprop="image" content="{{ product.featured_image.src | img_url: 'grande' }}">
 
-  <div class="grid product-single product-group parallax-group">
+  <div class="plx-product plx-group">
 
-    <div class="grid__item large--one-half text-center parallax-layer parallax-layer-back">
-      <div class="product-single__photos" id="ProductPhoto">
+    <div class="plx-layer plx-layer-base">
+
         {% assign featured_image = product.selected_or_first_available_variant.featured_image | default: product.featured_image %}
+
         <img src="{{ featured_image | img_url: 'large' }}" alt="{{ featured_image.alt | escape }}" id="ProductPhotoImg">
-      </div>
 
-      {% comment %}
-        Create thumbnails if we have more than one product image
-      {% endcomment %}
-      {% if product.images.size > 1 %}
-        <ul class="product-single__thumbnails grid-uniform" id="ProductThumbs">
-
-          {% for image in product.images %}
-            <li class="grid__item one-quarter">
-              <a href="{{ image.src | img_url: 'large' }}" class="product-single__thumbnail">
-                <img src="{{ image.src | img_url: 'compact' }}" alt="{{ image.alt | escape }}">
-              </a>
-            </li>
-          {% endfor %}
-
-        </ul>
-      {% endif %}
     </div>
 
-    <div class="grid__item large--one-half bespoke-form parallax-layer parallax-layer-base">
+    <div class="plx-layer plx-layer-back">
 
-      <h1 itemprop="name">{{ product.title }}</h1>
+        <div class="plx-title">
 
-      <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+          <h1 itemprop="name">
 
-        {% comment %}
-          Get first variant, or deep linked one
-        {% endcomment %}
-        {% assign variant = product.selected_or_first_available_variant %}
+            {{ product.title }}
 
-        <meta itemprop="priceCurrency" content="{{ shop.currency }}">
+          </h1>
 
-        <link itemprop="availability" href="http://schema.org/{% if product.available %}InStock{% else %}OutOfStock{% endif %}">
+          <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
 
-        {% comment %}
-          ID addToCartForm is a selector for the ajaxify cart plugin
-        {% endcomment %}
-        <form action="/cart/add" method="post" enctype="multipart/form-data" id="AddToCartForm">
+          {% assign variant = product.selected_or_first_available_variant %}
 
-          {% comment %}
-            Add product variants as a dropdown.
-              - By default, each variant (or combination of variants) will display as its own <option>
-              - To separate these into multiple steps, which we suggest, use option_selection.js (see below)
+          <meta itemprop="priceCurrency" content="{{ shop.currency }}">
 
-            You can leverage jQuery to add a callback on page load and each time the select element changes:
-              - Include option_selection.js (as seen at the bottom of this file)
-              - This allows you to use JavaScript anytime the variant dropdown changes
-              - This also separates out your variant options (ie. size, color, etc.) to separate select elements
+          <link itemprop="availability" href="http://schema.org/{% if product.available %}InStock{% else %}OutOfStock{% endif %}">
 
-            For more information on products with multiple options, visit:
-              - http://docs.shopify.com/support/your-website/themes/can-i-make-my-theme-use-products-with-multiple-options#update-product-liquid
-          {% endcomment %}
-          <select name="id" id="productSelect" class="product-single__variants">
-            {% for variant in product.variants %}
+            <form action="/cart/add" method="post" enctype="multipart/form-data" id="AddToCartForm">
+
+              <select name="id" id="productSelect" class="product-single__variants">
+              {% for variant in product.variants %}
               {% if variant.available %}
 
-                {% comment %}
-                  Note: if you use option_selection.js, your <select> tag will be overwritten, meaning what you have inside <option> will not reflect what you coded below.
-                {% endcomment %}
-                <option {% if variant == product.selected_or_first_available_variant %} selected="selected" {% endif %} value="{{ variant.id }}">{{ variant.title }} - {{ variant.price | money_with_currency }}</option>
+              <option {% if variant == product.selected_or_first_available_variant %} selected="selected" {% endif %} value="{{ variant.id }}">{{ variant.title }} - {{ variant.price | money_with_currency }}</option>
 
               {% else %}
-                <option disabled="disabled">
-                  {{ variant.title }} - {{ 'products.product.sold_out' | t }}
-                </option>
+              <option disabled="disabled">
+                {{ variant.title }} - {{ 'products.product.sold_out' | t }}
+              </option>
               {% endif %}
-            {% endfor %}
-          </select>
+              {% endfor %}
+              </select>
 
-          {% comment %}
-            Optionally show the 'compare at' or original price of the product.
-          {% endcomment %}
-          <span id="ProductPrice" class="h2{% if product.compare_at_price > product.price %} on-sale{% endif %}" itemprop="price">
-            {{ product.price | money }}
-          </span>
 
-          {% if product.compare_at_price > product.price %}
-            <p id="ComparePrice">
-              {{ 'products.product.compare_at' | t }} {{ product.compare_at_price_max | money }}
-            </p>
-          {% endif %}
+              <label for="Quantity" class="quantity-selector">{{ 'products.product.quantity' | t }}</label>
 
-          <label for="Quantity" class="quantity-selector">{{ 'products.product.quantity' | t }}</label>
-          <input type="number" id="Quantity" name="quantity" value="1" min="1" class="quantity-selector">
+              <input type="number" id="Quantity" name="quantity" value="1" min="1" class="quantity-selector">
 
-          <button type="submit" name="add" id="AddToCart" class="btn">
-            <span id="AddToCartText">{{ 'products.product.add_to_cart' | t }}</span>
-          </button>
-        </form>
+              <button type="submit" name="add" id="AddToCart" class="btn">
+
+                <span id="AddToCartText">{{ 'products.product.add_to_cart' | t }}</span>
+
+              </button>
+
+            </form>
+
+          </div>
+
+          <div itemprop="description">
+
+            {{ product.description }}
+
+          </div>
+
+        </div>
 
       </div>
 
-      <div class="product-description rte" itemprop="description">
-        {{ product.description }}
-      </div>
-
-      {% comment %}
-        If the user is on a collection product page (ie with /collections/collection-handle/products/product-handle)
-        in the URL, we can show next/previous links to other products in the collection.
-      {% endcomment %}
-      {% if collection %}
-        {% if collection.previous_product or collection.next_product %}
-          <p>
-
-          {% if collection.previous_product %}
-            {% capture prev_url %}{{ collection.previous_product}}#content{% endcapture %}
-            <span class="left">
-              {{ 'products.general.previous_product_html' | t | link_to: prev_url }}
-            </span>
-          {% endif %}
-
-          {% if collection.next_product %}
-            {% capture next_url %}{{ collection.next_product}}#content{% endcapture %}
-            <span class="right">
-              {{ 'products.general.next_product_html' | t | link_to: next_url }}
-            </span>
-          {% endif %}
-
-          </p>
-        {% endif %}
-      {% endif %}
-
-    </div>
   </div>
 
-  <div class="parallax-blog-feature">
+  <div class="plx-blog">
 
     {% for article in blogs.product-features.articles %}
 
     {% if article.tags contains product.title %}
 
-    <div class="parallax-group">
+    <div class="plx-group">
 
-      <div class="parallax-layer parallax-layer-base">
+      <div class="plx-layer plx-layer-base">
 
         {{ article.content }}
 
       </div>
 
-      <div class="parallax-layer parallax-layer-back">
+      <div class="plx-layer plx-layer-back">
 
-        <div class="parallax-title">
+        <div class="plx-title">
 
           <h3>
 
@@ -189,26 +120,6 @@
   </div>
 
 </div>
-
-{% comment %}
-
-  {% include 'footer' %}
-
-  To take advantage of a callback on the select dropdown, add option_selection.js
-  and customize the JS in timber.productPage as needed.
-
-  Currently, timber.productPage does the following:
-    - Hides your <select> tag from above
-    - Breaks out the product variants into separate product options, if more than one exists
-    - Generates a <select> tag for each product option
-    - Enables/disables elements based on variant availability
-
-  Callback notes:
-    - Keep the callback available to the global scope (window.selectCallback) so that advanced
-      addons can override it.
-      * E.g. multiple currencies http://docs.shopify.com/manual/configuration/store-customization/currencies-and-translations/currencies/how-to-toggle-between-two-currencies
-
-{% endcomment %}
 
 {{ 'option_selection.js' | shopify_asset_url | script_tag }}
 
@@ -242,80 +153,8 @@
 
   <style>
 
-    .grid.product-single.product-group.parallax-group {
 
-      margin: 0;
-
-    }
-
-    /* product image */
-
-    .grid.product-single.product-group.parallax-group {
-
-      min-height: 100%;
-      min-height: 100vh;
-      position: relative;
-
-    }
-
-    .product-group img {
-
-      position: absolute;
-      left: 0;
-      top: 0;
-      height: 100%;
-      height: 100vh;
-
-    }
-
-    /* product form */
-
-    .bespoke-form {
-
-      background: #ffffff;
-      position: absolute;
-      width: 280px;
-      margin: 50px;
-      right: 0;
-      top: 0;
-
-    }
-
-
-    /* parallax styling */
-
-    .parallax-title {
-
-      text-transform: uppercase;
-      font-weight: 600;
-      padding: 20px 10px;
-
-    }
-
-    .parallax-title h3:before {
-
-      display: none;
-
-    }
-
-    .bespoke-parallax h1,
-    .parallax-title h3 {
-
-      font-family: 'Gotham SSm A', 'Gotham SSm B';
-      text-transform: uppercase;
-      font-weight: 600;
-
-    }
-
-    .parallax-title a {
-
-      font-family: 'Gotham SSm A', 'Gotham SSm B';
-      text-transform: lowercase;
-      font-style: italic;
-      font-weight: 300;
-      padding: 5px;
-
-    }
+    /* general product page */
 
     body {
 
@@ -323,9 +162,164 @@
 
     }
 
-    img {
+    .bespoke-plx {
+
+      height: 100%;
+      height: 100vh;
+      min-height: 1000%;
+      min-height: 100vh;
+      overflow-x: hidden;
+      overflow-y: auto;
+      -webkit-perspective: 1px;
+      perspective: 1px;
+
+    }
+
+    .plx-group {
+
+      -webkit-transform-style: preserve-3d;
+      transform-style: preserve-3d;
+      position: relative;
+      height: 1200px;
+
+    }
+
+    .plx-layer {
+
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      left: 0;
+      top: 0;
+
+    }
+
+    .plx-layer-back {
+
+      -webkit-transform: translateZ( -1px ) scale( 2 );
+      transform: translateZ( -1px ) scale( 2 );
+
+    }
+
+    .plx-layer-base {
+
+      -webkit-transform: translateZ( 0 );
+      transform: translateZ( 0 );
+
+    }
+
+
+    /* parallax product section */
+
+    .plx-product.plx-group:nth-of-type( odd ) {
+
+      text-align: left;
+
+    }
+
+    .plx-product.plx-group:nth-of-type( odd ) .plx-title {
+
+      left: 75%;
+      top: 25%;
+
+    }
+
+    .plx-product.plx-group:nth-of-type( even )  {
+
+      text-align: right;
+
+    }
+
+    .plx-product.plx-group:nth-of-type( even ) .plx-title {
+
+      left: 25%;
+
+    }
+
+    .plx-product img {
+
+      height: 90vh;
+      width: auto;
+      margin: 0 0 10vh 0;
+
+    }
+
+
+    /* parallax blog section */
+
+    .plx-blog {
+
+      margin-top: 80%;
+      margin-top: 80vh;
+
+    }
+
+    .plx-blog img {
 
       box-shadow: none;
+      height: 600px;
+
+    }
+
+    .plx-blog.plx-group:nth-of-type(even) {
+
+      text-align: right;
+
+    }
+
+    .plx-blog.plx-group:nth-of-type( even ) .plx-title {
+
+      left: 75%;
+
+    }
+
+    .plx-blog.plx-group:nth-of-type( odd )  {
+
+      text-align: right;
+
+    }
+
+    .plx-blog.plx-group:nth-of-type( odd ) .plx-title {
+
+      left: 25%;
+
+    }
+
+    .plx-blog.plx-title {
+
+      -webkit-transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%);
+      text-align: center;
+      position: absolute;
+      max-width: 320px;
+      width: 100%;
+      left: 50%;
+      top: 5%;
+
+    }
+
+    .plx-blog.plx-title h3:before {
+
+      border-top: 4px solid #333;
+      position: absolute;
+      margin: auto;
+      width: 30px;
+      content:'';
+      right: 0;
+      left: 0;
+      top: 0;
+
+    }
+
+    .plx-blog.plx-title h3 {
+
+      font-family: 'Didot 11 A', 'Didot 11 B';
+      text-transform: lowercase;
+      padding: 15px 5px 10px 5px;
+      font-style: italic;
+      position: relative;
+      font-weight: 300;
+      color: #000;
 
     }
 
