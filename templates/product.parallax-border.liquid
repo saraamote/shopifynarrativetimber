@@ -43,7 +43,7 @@
 
       <h1 itemprop="name">{{ product.title }}</h1>
 
-      <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+      <div itemprop="offers hide" itemscope itemtype="http://schema.org/Offer">
 
         {% comment %}
           Get first variant, or deep linked one
@@ -57,7 +57,7 @@
         {% comment %}
           ID addToCartForm is a selector for the ajaxify cart plugin
         {% endcomment %}
-        <form action="/cart/add" method="post" enctype="multipart/form-data" id="AddToCartForm">
+        <form action="/cart/add" method="post" enctype="multipart/form-data" id="AddToCartForm" class="hide">
 
           {% comment %}
             Add product variants as a dropdown.
@@ -112,7 +112,7 @@
 
       </div>
 
-      <div class="product-description rte" itemprop="description">
+      <div class="product-description rte hide" itemprop="description">
         {{ product.description }}
       </div>
 
@@ -241,34 +241,46 @@
 
   <style>
 
+    h1 {
+
+      margin: 300px 50px 100px;
+
+    }
+
+    .hide {
+
+      display: none;
+
+    }
+
+    .product-single__photos img {
+
+      display: block;
+      width: 85%;
+
+    }
+
     .bespoke-parallax {
 
-      background-image: -webkit-linear-gradient(top, #fff 0%, #f4f4f4 75%);
-      background-image: linear-gradient(to bottom, #fff 0%, #f4f4f4 75%);
+      background: #efefef;
 
     }
 
     .parallax-title {
 
-      background: rgba( 255 , 255 , 255 , 0.5 );
       text-transform: uppercase;
       font-weight: 600;
       padding: 20px 10px;
 
     }
 
-    .parallax-title h3:before {
-
-      display: none;
-
-    }
 
     .bespoke-parallax h1,
     .parallax-title h3 {
 
-      font-family: 'Gotham SSm A', 'Gotham SSm B';
-      text-transform: uppercase;
-      font-weight: 600;
+    font-family: 'Didot 11 A', 'Didot 11 B';
+    font-style: italic;
+    font-weight: 600;
 
     }
 
@@ -283,9 +295,49 @@
 
     }
 
-    .parallax-title {
+    .parallax-group:nth-of-type( odd ) .parallax-title {
 
-      border: 5px double #000;
+      left: 25%;
+
+    }
+
+
+    .parallax-group:nth-of-type( even ) .parallax-title {
+
+      left: 75%;
+
+    }
+
+
+    img,
+    .parallax-blog-feature img {
+
+      height: auto;
+      width: 50%;
+
+    }
+
+    .parallax-blog-feature .parallax-group:nth-of-type( even ) {
+
+      text-align: left;
+
+   }
+
+    .parallax-group:nth-of-type( odd ) {
+
+      text-align: right;
+
+    }
+
+    .parallax-group:nth-of-type( odd ) .parallax-layer-base {
+
+      right: -10%;
+
+    }
+
+    .parallax-group:nth-of-type( even ) .parallax-layer-base {
+
+      left: -10%;
 
     }
 
