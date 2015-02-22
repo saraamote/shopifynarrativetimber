@@ -165,6 +165,195 @@
 
     </div>
 
+    <!-- start custom form section -->
+
+          <div id="custom-checkout-form">
+
+            <p>
+
+              We need some additional information from you in order to form mentoring groups and study groups.
+
+              </p>
+
+              <p>
+
+              Please fill out the information below, then click Checkout to proceed to payment.
+
+            </p>
+
+            <input type="checkbox" name="choice-dollar" id="purchasing-gift" checked>
+
+            <p class="italic">
+
+              If you are purchasing a gift card to pay for another person’s registration, please uncheck this box.
+
+            </p>
+
+            <div class="reveal-if-active">
+
+              <div class="question">
+
+                <!-- gender -->
+
+                {% assign attribute = 'gender' %}
+
+                <label for="{{ attribute }}">Gender:</label>
+
+                <select id="gender" name="attributes[gender]" required class="require-if-active" data-require-pair="#purchasing-gift">
+
+                  {% for i in (1..3) %}
+
+                  {% capture option %}{% cycle '', 'Male', 'Female' %}{% endcapture %}
+
+                  <option value="{{ option }}"{% if cart.attributes[attribute] == option %} selected="selected"{% endif %} data-error="Please tell us your info.">{{ option }}</option>
+
+                  {% endfor %}
+
+                </select>
+
+              </div>
+
+              <div class="question">
+                <!-- age range -->
+
+                {% assign attribute = 'age-range' %}
+
+                <label for="{{ attribute }}">Age range:</label>
+
+                <select id="age-range" name="attributes[age-range]" required class="require-if-active" data-require-pair="#purchasing-gift">
+
+                  {% for i in (1..6) %}
+
+                  {% capture option %}{% cycle '', '18-29', '30-39', '40-49', '50-59', '60+' %}{% endcapture %}
+
+                  <option value="{{ option }}"{% if cart.attributes[attribute] == option %} selected="selected"{% endif %}  data-error="Please tell us your info.">{{ option }}</option>
+
+                  {% endfor %}
+
+                </select>
+
+              </div>
+
+              <div class="question">
+
+                <!-- primary language -->
+
+                {% assign attribute = 'primary-language' %}
+
+                <label for="{{ attribute }}">Primary language</label>
+
+                <select id="primary-language" name="attributes[primary-language]" required class="require-if-active" data-require-pair="#purchasing-gift">
+
+                  {% for i in (1..3) %}
+
+                  {% capture option %}{% cycle '', 'English', 'German' %}{% endcapture %}
+
+                  <option value="{{ option }}"{% if cart.attributes[attribute] == option %} selected="selected"{% endif %}  data-error="Please tell us your info.">{{ option }}</option>
+
+                  {% endfor %}
+
+                </select>
+
+              </div>
+
+              <div class="question">
+
+                <!-- time zone -->
+
+                {% assign attribute = 'time-zone' %}
+
+                <label for="{{ attribute }}">Time Zone</label>
+
+                <select id="time-zone" name="attributes[time-zone]" required class="require-if-active" data-require-pair="#purchasing-gift">
+
+                  {% for i in (1..9) %}
+
+                  {% capture option %}{% cycle '', 'Pacific Time (US&#44; Canada)', 'Mountain Time (US&#44; Canada)', ' Central Time (US&#44; Canada)', 'Eastern Time (US&#44; Canada)', 'Western European Time', 'Eastern European Time', 'Israel Time', 'Other (enter below)' %}{% endcapture %}
+
+                  <option value="{{ option }}"{% if cart.attributes[attribute] == option %} selected="selected"{% endif %}  data-error="Please tell us your info.">{{ option }}</option>
+
+                  {% endfor %}
+
+                </select>
+
+              </div>
+
+              <div class="question">
+
+                <p class="field">
+                  <label>If your time zone is not listed, enter yours here</label>
+                  <!--<textarea id="other-time-zone" name="attributes[other-time-zone]">{{ other-time-zone }}</textarea>-->
+
+                  <input type="text" name="attributes[other-time-zone]" value="{{ cart.attributes.other-time-zone }}" data-require-pair="#purchasing-gift" />
+
+                </p>
+
+              </div>
+
+              <div class="question">
+
+                <!-- country of residence -->
+
+                <p class="field">
+                  <label>Country of residence</label>
+                  <!--<textarea rows="1" cols="5" id="country" name="attributes[country]" required class="require-if-active" data-require-pair="#purchasing-gift" >{{ country }}</textarea>-->
+
+                  <input type="text" name="attributes[country]" value="{{ cart.attributes.country }}" class="require-if-active" data-require-pair="#purchasing-gift" />
+
+                </p>
+
+              </div>
+                <div class="question">
+                <!-- city of residence -->
+
+                <p class="field">
+                  <label>City of residence</label>
+                  <!--<textarea id="city" name="attributes[city]" required class="require-if-active" data-require-pair="#purchasing-gift">{{ city }}</textarea>-->
+
+                  <input type="text" name="attributes[city]" value="{{ cart.attributes.city }}" class="require-if-active" data-require-pair="#purchasing-gift" />
+
+                </p>
+
+              </div>
+
+              <div class="question">
+
+                <!-- track -->
+
+                {% assign attribute = 'track' %}
+
+                <label for="{{ attribute }}">Track:</label>
+
+                <p class="italic">Cick <a href="http://online.thomashuebl.com/pdf/mphealing/Mystical_Principles_of_Healing_Track_Definitions.pdf
+  " target="_blank" style="text-decoration: underline;">here</a> for details</p>
+
+                <select id="track" name="attributes[track]" required class="require-if-active" data-require-pair="#purchasing-gift">
+
+                  {% for i in (1..7) %}
+
+                  {% capture option %}{% cycle '', 'Psychotherapy', 'Medical Practitioners', 'Bodyworkers', 'Coaches and Group Leaders', 'Alternative practitioners', ' Individual (non-professional)' %}{% endcapture %}
+
+                  <option value="{{ option }}"{% if cart.attributes[attribute] == option %} selected="selected"{% endif %}  data-error="Please tell us your info.">{{ option }}</option>
+
+                  {% endfor %}
+
+                </select>
+
+              </div>
+
+              <!-- experiene -->
+
+              <p class="field" style="margin: 15px 1%;">
+                <label>Past or current experience with Thomas’s work (250 words max.)</label>
+                <textarea id="past-or-current-experience-with-thomass-work-250-words-max" name="attributes[experience]" required class="require-if-active" data-require-pair="#purchasing-gift" maxlength="1500">{{ experience }}</textarea>
+              </p>
+
+            </div> <!-- end reveal if active -->
+
+          </div> <!-- end custom built checkout-form -->
+
+          <!-- end custom form section -->
+
   </form>
 
 {% else %}
@@ -175,3 +364,197 @@
   <p>{{ 'cart.general.empty' | t }}</p>
   <p>{{ 'cart.general.continue_browsing_html' | t }}</p>
 {% endif %}
+
+<style>
+
+  input[type="number"],
+  input[type="text"],
+  textarea,
+  select {
+
+    border: 1px solid #a6a6a6;
+    color: #204a80;
+
+  }
+
+  #custom-checkout-form {
+
+    text-align: center;
+    max-width: 1000px;
+    color: #204a80;
+    margin: auto;
+
+  }
+
+  #custom-checkout-form .question {
+
+    display: inline-block;
+    vertical-align: top;
+    text-align: left;
+    margin: 15px 1%;
+
+  }
+
+  #custom-checkout-form .question:nth-of-type( 1 ),
+  #custom-checkout-form .question:nth-of-type( 2 ),
+  #custom-checkout-form .question:nth-of-type( 3 ) {
+
+    width: 28%;
+
+  }
+
+  #custom-checkout-form .question:nth-of-type( 4 ) {
+
+    width: 28%;
+
+  }
+
+  #custom-checkout-form .question:nth-of-type( 5 ) {
+
+    width: 58%;
+
+  }
+
+  #custom-checkout-form .question:nth-of-type( 6 ),
+  #custom-checkout-form .question:nth-of-type( 7 ) {
+
+    width: 43%;
+
+  }
+
+  #custom-checkout-form .question:nth-of-type( 8 ) {
+
+    width: 58%;
+
+  }
+
+  #custom-checkout-form p.italic,
+  .italic {
+
+    display: inline-block;
+    font-weight: normal;
+    font-style: italic;
+    font-size: .9em;
+    padding: 0;
+
+  }
+
+  #custom-checkout-form label,
+  #custom-checkout-form p {
+
+    font-weight: bold;
+
+  }
+
+  #custom-checkout-form select {
+
+    background-size: 15px;
+
+  }
+
+  /* reveal if active */
+
+  .reveal-if-active {
+
+    display: none;
+
+  }
+
+  input[type="radio"]:checked ~ .reveal-if-active,
+  input[type="checkbox"]:checked ~ .reveal-if-active {
+
+    display: block;
+
+  }
+
+
+  /* mobile */
+
+  @media (max-width: 700px) {
+
+    #custom-checkout-form .question:nth-of-type( 1 ),
+    #custom-checkout-form .question:nth-of-type( 2 ),
+    #custom-checkout-form .question:nth-of-type( 3 ),
+    #custom-checkout-form .question:nth-of-type( 4 ) {
+
+      width: 45%;
+
+    }
+
+    #custom-checkout-form .question:nth-of-type( 5 ) {
+
+    width: 94%;
+
+    }
+
+    #custom-checkout-form .question:nth-of-type( 6 ),
+    #custom-checkout-form .question:nth-of-type( 7 ) {
+
+    width: 46%;
+
+    }
+
+    #custom-checkout-form .question:nth-of-type( 8 ) {
+
+    width: 94%;
+
+    }
+
+  }
+
+    @media (max-width: 500px) {
+
+    #custom-checkout-form .question:nth-of-type( 1 ),
+    #custom-checkout-form .question:nth-of-type( 2 ),
+    #custom-checkout-form .question:nth-of-type( 3 ),
+    #custom-checkout-form .question:nth-of-type( 4 ),
+    #custom-checkout-form .question:nth-of-type( 5 ),
+    #custom-checkout-form .question:nth-of-type( 6 ),
+    #custom-checkout-form .question:nth-of-type( 7 ),
+    #custom-checkout-form .question:nth-of-type( 8 ) {
+
+    width: 94%;
+
+    }
+
+  }
+
+</style>
+
+<script>
+
+  var FormStuff = {
+
+  init: function() {
+    // kick it off once, in case the radio is already checked when the page loads
+    this.applyConditionalRequired();
+    this.bindUIActions();
+  },
+
+  bindUIActions: function() {
+    // when a radio or checkbox changes value, click or otherwise
+    $("input[type='radio'], input[type='checkbox']").on("change", this.applyConditionalRequired);
+  },
+
+  applyConditionalRequired: function() {
+    // find each input that may be hidden or not
+    $(".require-if-active").each(function() {
+      var el = $(this);
+      // find the pairing radio or checkbox
+      if ($(el.data("require-pair")).is(":checked")) {
+        // if its checked, the field should be required
+        el.prop("required", true);
+      } else {
+        // otherwise it should not
+        el.prop("required", false);
+      }
+    });
+  }
+
+};
+
+FormStuff.init();
+
+</script>
+
+
